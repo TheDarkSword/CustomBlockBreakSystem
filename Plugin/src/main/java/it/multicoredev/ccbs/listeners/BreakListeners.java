@@ -2,6 +2,7 @@ package it.multicoredev.ccbs.listeners;
 
 import it.multicoredev.ccbs.Main;
 import it.multicoredev.ccbs.utls.Utls;
+import it.multicoredev.ccbs.utls.XMaterial;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -25,7 +26,6 @@ public class BreakListeners implements Listener {
     @EventHandler
     public void onBlockBreak(BlockDamageEvent event){
 
-        Utls.addSlowDig(event.getPlayer(), 200);
         Main.brokenBlocksService.createBrokenBlock(event.getBlock(), 30);
     }
 
@@ -33,8 +33,8 @@ public class BreakListeners implements Listener {
     public void onBreakingBlock(PlayerAnimationEvent event){
         Player player = event.getPlayer();
         HashSet<Material> transparentBlocks = new HashSet<>();
-        transparentBlocks.add(Material.LEGACY_STATIONARY_WATER);
-        transparentBlocks.add(Material.AIR);
+        transparentBlocks.add(XMaterial.WATER.parseMaterial());
+        transparentBlocks.add(XMaterial.AIR.parseMaterial());
         Block block = player.getTargetBlock(transparentBlocks, 5);
         Location blockPosition = block.getLocation();
 
@@ -47,6 +47,7 @@ public class BreakListeners implements Listener {
         double distanceZ = blockPosition.getZ() - player.getLocation().getZ();
 
         if(distanceX * distanceX + distanceY * distanceY + distanceZ * distanceZ >= 1024.0D) return;
+        Utls.addSlowDig(event.getPlayer(), 200);
         Main.brokenBlocksService.getBrokenBlock(blockPosition).incrementDamage(player, 1);
     }
 }

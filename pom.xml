@@ -6,8 +6,15 @@
 
     <groupId>it.multicoredev.customblockbreak</groupId>
     <artifactId>CustomBlockBreakSystem</artifactId>
-    <packaging>pom</packaging>
     <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <developers>
+        <developer>
+            <id>TheDarkSword01</id>
+        </developer>
+    </developers>
+
     <modules>
         <module>API</module>
         <module>v1_8_R1</module>

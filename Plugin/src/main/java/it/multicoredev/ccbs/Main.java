@@ -53,7 +53,7 @@ public class Main extends JavaPlugin {
             Class<?> clazz = Class.forName("it.multicoredev.nms." + version + ".NMSHandler");
 
             if(NMS.class.isAssignableFrom(clazz)){
-                this.nmsHandler = (NMS) clazz.getConstructor().newInstance();
+                nmsHandler = (NMS) clazz.getConstructor().newInstance();
             }
 
         } catch (Exception e){

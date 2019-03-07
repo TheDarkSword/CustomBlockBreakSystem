@@ -2,6 +2,8 @@
   <dictionary name="TheDarkSword01">
     <words>
       <w>bukkit</w>
+      <w>customblockbreak</w>
+      <w>multicoredev</w>
     </words>
   </dictionary>
 </component>

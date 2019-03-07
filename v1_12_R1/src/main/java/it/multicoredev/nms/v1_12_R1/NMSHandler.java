@@ -1,16 +1,17 @@
-package it.multicoredevs.nms.v1_8_R2;
+package it.multicoredev.nms.v1_12_R1;
 
 import it.multicoredev.ccbs.api.NMS;
-import net.minecraft.server.v1_8_R2.BlockPosition;
-import net.minecraft.server.v1_8_R2.PacketPlayOutBlockBreakAnimation;
+import net.minecraft.server.v1_12_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_8_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_8_R2.util.CraftMagicNumbers;
+import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_12_R1.util.CraftMagicNumbers;
 import org.bukkit.entity.Player;
+
+import java.lang.reflect.Field;
 
 /**
  * Copyright © 2019 by Michele Giacalone
@@ -34,6 +35,23 @@ import org.bukkit.entity.Player;
  */
 public class NMSHandler implements NMS {
 
+    private static Field breakSound;
+    private static Field minecraftKey;
+
+    static {
+        try {
+            breakSound = SoundEffectType.class.getDeclaredField("o");
+            breakSound.setAccessible(true);
+
+            minecraftKey = SoundEffect.class.getDeclaredField("b");
+            minecraftKey.setAccessible(true);
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void sendBreakPacket(int animation, Block block) {
         ((CraftServer) Bukkit.getServer()).getHandle().sendPacketNearby(null, block.getX(), block.getY(), block.getZ(), 120,
                 ((CraftWorld) block.getWorld()).getHandle().dimension, new PacketPlayOutBlockBreakAnimation(getBlockEntityId(block), getBlockPosition(block), animation));
@@ -44,10 +62,18 @@ public class NMSHandler implements NMS {
     }
 
     public void playBlockSound(Block block) {
-        String soundName = CraftMagicNumbers.getBlock(block).stepSound.getBreakSound();
-        soundName = soundName.toUpperCase().replaceAll("\\.", "_");
+        try {
 
-        block.getWorld().playSound(block.getLocation(), Sound.valueOf(soundName), 1, 1);
+            SoundEffectType soundEffectType = CraftMagicNumbers.getBlock(block).getStepSound();
+            SoundEffect soundEffect = (SoundEffect) breakSound.get(soundEffectType);
+            MinecraftKey minecraftKey = (MinecraftKey) NMSHandler.minecraftKey.get(soundEffect);
+            String soundName = minecraftKey.getKey();
+            soundName = soundName.toUpperCase().replaceAll("\\.", "_");
+
+            block.getWorld().playSound(block.getLocation(), Sound.valueOf(soundName), 1, 1);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private BlockPosition getBlockPosition(Block block){

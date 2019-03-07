@@ -40,7 +40,7 @@ public class BreakListeners implements Listener {
 
         if(!Main.brokenBlocksService.isBrokenBlock(blockPosition)) return;
 
-        ItemStack itemStack = player.getInventory().getItemInMainHand();
+        ItemStack itemStack = player.getItemInHand();
 
         double distanceX = blockPosition.getX() - player.getLocation().getX();
         double distanceY = blockPosition.getY() - player.getLocation().getY();

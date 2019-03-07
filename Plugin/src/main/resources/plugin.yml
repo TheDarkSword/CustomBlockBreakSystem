@@ -1,7 +1,7 @@
 name: CustomBlockBreakSystem
 version: 1.0
 author: TheDarkSword01
-authors: [YTnoos]
+authors: [TheDarkSword01, YTnoos]
 depend: [MBCore]
 main: it.multicoredev.ccbs.Main
 description: Just An Example of Custom Block Break System

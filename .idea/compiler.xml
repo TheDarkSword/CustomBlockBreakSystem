@@ -29,16 +29,16 @@
       <module name="API" target="1.5" />
       <module name="CustomBlockBreakSystem" target="1.5" />
       <module name="Plugin" target="1.7" />
-      <module name="v1_10_R1" target="1.7" />
-      <module name="v1_11_R1" target="1.7" />
-      <module name="v1_12_R1" target="1.7" />
-      <module name="v1_13_R1" target="1.7" />
-      <module name="v1_13_R2" target="1.7" />
+      <module name="v1_10_R1" target="1.5" />
+      <module name="v1_11_R1" target="1.5" />
+      <module name="v1_12_R1" target="1.5" />
+      <module name="v1_13_R1" target="1.5" />
+      <module name="v1_13_R2" target="1.5" />
       <module name="v1_8_R1" target="1.5" />
       <module name="v1_8_R2" target="1.5" />
       <module name="v1_8_R3" target="1.5" />
-      <module name="v1_9_R1" target="1.7" />
-      <module name="v1_9_R2" target="1.7" />
+      <module name="v1_9_R1" target="1.5" />
+      <module name="v1_9_R2" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

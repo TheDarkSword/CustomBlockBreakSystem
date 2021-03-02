@@ -43,8 +43,6 @@ public class BrokenBlock {
     public void incrementDamage(Player from, double multiplier){
         if(isBroken()) return;
 
-
-
         damage += multiplier;
         int animation = getAnimation();
 
@@ -74,7 +72,6 @@ public class BrokenBlock {
 
     public void destroyBlockObject(){
         sendBreakPacket(-1);
-
     }
 
     public int getAnimation(){

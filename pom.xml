@@ -28,6 +28,11 @@
         <module>v1_13_R1</module>
         <module>v1_13_R2</module>
         <module>Plugin</module>
+        <module>v1_14_R1</module>
+        <module>v1_15_R1</module>
+        <module>v1_16_R1</module>
+        <module>v1_16_R2</module>
+        <module>v1_16_R3</module>
     </modules>
 
 </project>

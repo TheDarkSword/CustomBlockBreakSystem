@@ -1,8 +1,8 @@
 package it.multicoredev.ccbs.listeners;
 
+import com.cryptomorin.xseries.XMaterial;
 import it.multicoredev.ccbs.Main;
 import it.multicoredev.ccbs.utls.Utls;
-import it.multicoredev.ccbs.utls.XMaterial;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,6 +23,14 @@ import java.util.HashSet;
  */
 public class BreakListeners implements Listener {
 
+    private static HashSet<Material> transparentBlocks = new HashSet<>();
+
+    static {
+        transparentBlocks.add(XMaterial.WATER.parseMaterial());
+        transparentBlocks.add(XMaterial.AIR.parseMaterial());
+    }
+
+
     @EventHandler
     public void onBlockBreak(BlockDamageEvent event){
 
@@ -32,14 +40,15 @@ public class BreakListeners implements Listener {
     @EventHandler
     public void onBreakingBlock(PlayerAnimationEvent event){
         Player player = event.getPlayer();
-        HashSet<Material> transparentBlocks = new HashSet<>();
-        transparentBlocks.add(XMaterial.WATER.parseMaterial());
-        transparentBlocks.add(XMaterial.AIR.parseMaterial());
+
         Block block = player.getTargetBlock(transparentBlocks, 5);
         Location blockPosition = block.getLocation();
 
         if(!Main.brokenBlocksService.isBrokenBlock(blockPosition)) return;
 
+        /*
+        Use player#getItemInHand for backwards compatibility
+         */
         ItemStack itemStack = player.getItemInHand();
 
         double distanceX = blockPosition.getX() - player.getLocation().getX();
